@@ -383,6 +383,7 @@ enum proto_type
 	s2c_update_group_member_clan		= 11052;
 	s2c_update_group_member_refresh		= 11053;
 	s2c_updaue_member_main_recent		= 11054;
+	s2c_clear_request					= 11055;
 /*****************group end**********************/
 
 /***************** attributes *******************/
@@ -1936,6 +1937,11 @@ message s2c_delete_request
 	uint64 player_id = 1;					// 玩家ID
 }
 
+message s2c_clear_request
+{
+	bool is_full			= 1;  // 当前队伍已满，通知同队人员清理请求
+}
+
 // 处理申请
 message c2s_join_answer
 {
@@ -3092,7 +3098,6 @@ message r_active_skill
 	uint32     special_time  = 4;  // 蓄力, 吟唱时常
 	uint32     guide_time    = 5;  // 引导时常
 	bool 	   no_pre_time   = 6;  // 没有前摇
-	float      time_scale    = 7;  // 技能时间缩放系数
 }
 
 message r_update_buff
