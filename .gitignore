@@ -1,5 +1,9 @@
 # Visual Studio 2015 user specific files
 .vs/
+.vscode/
+
+#pdb
+*.pdb
 
 # Compiled Object files
 *.slo
@@ -14,7 +18,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+#*.dll
 
 # Fortran module files
 *.mod
@@ -46,8 +50,8 @@ SourceArt/**/*.png
 SourceArt/**/*.tga
 
 # Binary Files
-Binaries/*
-Plugins/*/Binaries/*
+!Binaries/*
+!Plugins/*/Binaries/*
 
 # Builds
 Build/*

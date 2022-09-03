@@ -1,0 +1,31 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "Unreal Net",
+  "Description": "UE4 Multichannel TCP&UDP Network",
+  "Category": "Network",
+  "CreatedBy": "HuabingHu",
+  "CreatedByURL": "http://www.fengbaohuyu.com",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "EnabledByDefault": false,
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "Installed": false,
+
+  "Modules": [
+    {
+      "Name": "UnrealNet",
+      "Type": "Runtime",
+      "LoadingPhase": "PreDefault"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "Cryptography",
+      "Enabled": true
+    }
+  ]
+}

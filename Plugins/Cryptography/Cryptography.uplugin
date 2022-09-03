@@ -1,0 +1,25 @@
+{
+    "FileVersion" : 3,
+    "Version" : 1,
+    "VersionName" : "1.0",
+    "FriendlyName" : "Cryptography",
+    "Description" : "Cryptographic schemes library",
+    "Category" : "Utility",
+    "CreatedBy" : "HuabingHu",
+    "CreatedByURL" : "http://www.fengbaohuyu.com",
+    "DocsURL" : "",
+    "MarketplaceURL" : "",
+    "SupportURL" : "",
+    "EnabledByDefault" : false,
+    "CanContainContent" : true,
+    "IsBetaVersion" : false,
+    "Installed" : false,
+
+    "Modules": [
+        {
+            "Name": "Cryptography",
+            "Type": "Runtime",
+            "LoadingPhase": "PostConfigInit"
+        }
+    ]
+}
