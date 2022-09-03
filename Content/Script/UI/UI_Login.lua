@@ -60,15 +60,22 @@ function UI_Login:Construct()
     self.Button_Test_1.OnClicked:Add(self, self.OnClicked_Test_1)
     self.Button_Test_2.OnClicked:Add(self, self.OnClicked_Test_2)
     self.Button_Test_3.OnClicked:Add(self, self.OnClicked_Test_3)
+    self.Button_Test_4.OnClicked:Add(self, self.OnClicked_Test_4)
+    self.Button_Test_5.OnClicked:Add(self, self.OnClicked_Test_5)
+    self.Button_Test_6.OnClicked:Add(self, self.OnClicked_Test_6)
     NetMgr:RegEvent("OnRecvMsg", self, self.OnRecvMsg)
 end
 
 function UI_Login:OnClicked_Test()
-    NetMgr:Connect("140.143.246.73" , 10100)
+	local IP = self.Text_IP:GetText()
+	local Port = tonumber(self.Text_Port:GetText())
+    NetMgr:Connect(IP , Port)
 end
 
 function UI_Login:OnClicked_Test_1()
-    NetMgr:SendMessage("c2s_user_auth", {user_id = "cjh001@100", token = "123"})
+	local UserID = self.Text_UserID:GetText()
+	local Token = self.Text_Token:GetText()
+    NetMgr:SendMessage("c2s_user_auth", {user_id = UserID, token = Token})
 end
 
 function UI_Login:OnClicked_Test_2()
@@ -76,7 +83,24 @@ function UI_Login:OnClicked_Test_2()
 end
 
 function UI_Login:OnClicked_Test_3()
-    NetMgr:SendMessage("c2s_enter_world", {player_id = 9432701205947492})
+	local PlayerID = tonumber(self.Text_PlayerID:GetText())
+    NetMgr:SendMessage("c2s_enter_world", {player_id = PlayerID})
+end
+
+function UI_Login:OnClicked_Test_4()
+    NetMgr:SendMessage("c2s_logout", {})
+end
+
+function UI_Login:OnClicked_Test_5()
+	local Profession = tonumber(self.Text_Profession:GetText())
+	local Name = self.Text_Name:GetText()
+    NetMgr:SendMessage("c2s_create_player", {profession = Profession, name = Name})
+end
+
+function UI_Login:OnClicked_Test_6()
+	local GroupID = tonumber(self.Text_GroupID:GetText())
+	local GroupPWD = self.Text_GroupPWD:GetText()
+    NetMgr:SendMessage("c2s_group_join", {id = GroupID, password = GroupPWD})
 end
 
 function UI_Login:OnRecvMsg(InMessageType, InMessage)
