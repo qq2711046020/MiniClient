@@ -16,6 +16,7 @@ end
 
 function FuncMap.Test()
     require("socket.core")
+    NotifyMsg("Test")
 end
 
 function FuncMap.ReloadLua()

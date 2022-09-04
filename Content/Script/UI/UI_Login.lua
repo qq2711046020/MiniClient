@@ -8,104 +8,37 @@
 
 require "UnLua"
 
-local function basicSerialize (o)
-    local so = tostring(o)
-    if type(o) == "number" or type(o) == "boolean" then
-        return so
-    else
-        return string.format("%q", so)
-    end
-end
-
-local function TableToString(t, prefix)
-	local cart = ""
-	local function addtocart (value, name, indent, saved, field)
-		indent = indent or ""
-		saved = saved or {}
-		field = field or name
-		cart = cart .. indent .. field
-		if type(value) ~= "table" then
-			cart = cart .. " = " .. basicSerialize(value) .. ",\n"
-		else
-			if saved[value] then
-				cart = cart .. " = {}, -- " .. saved[value]
-							.. " (self reference)\n"
-				autoref = autoref ..  name .. " = " .. saved[value] .. ",\n"
-			else
-				saved[value] = name
-				if not next(value) then
-					cart = cart .. " = {},\n"
-				else
-					cart = cart .. " = {\n"
-					for k, v in pairs(value) do
-						k = basicSerialize(k)
-						local fname = string.format("%s[%s]", name, k)
-						field = string.format("[%s]", k)
-						addtocart(v, fname, indent .. "\t", saved, field)
-					end
-					cart = cart .. indent .. "},\n"
-				end
-			end
-		end
-	end
-    addtocart(t, prefix)
-    return cart .. "\n\n"
-end
-
 ---@class UI_Login
 local UI_Login = Class()
 
 function UI_Login:Construct()
-    self.Button_Test.OnClicked:Add(self, self.OnClicked_Test)
-    self.Button_Test_1.OnClicked:Add(self, self.OnClicked_Test_1)
-    self.Button_Test_2.OnClicked:Add(self, self.OnClicked_Test_2)
-    self.Button_Test_3.OnClicked:Add(self, self.OnClicked_Test_3)
-    self.Button_Test_4.OnClicked:Add(self, self.OnClicked_Test_4)
-    self.Button_Test_5.OnClicked:Add(self, self.OnClicked_Test_5)
-    self.Button_Test_6.OnClicked:Add(self, self.OnClicked_Test_6)
-    NetMgr:RegEvent("OnRecvMsg", self, self.OnRecvMsg)
+	NetMgr:Connect()
+    self.Button_Login.OnClicked:Add(self, self.OnClicked_Login)
+    NetMgr:RegEvent("s2c_ret_user_auth", self, self.s2c_ret_user_auth)
 end
 
-function UI_Login:OnClicked_Test()
-	local IP = self.Text_IP:GetText()
-	local Port = tonumber(self.Text_Port:GetText())
-    NetMgr:Connect(IP , Port)
-end
-
-function UI_Login:OnClicked_Test_1()
-	local UserID = self.Text_UserID:GetText()
+function UI_Login:OnClicked_Login()
+	local UserID = self.Text_UserID:GetText() .. NetMgr.Subfix
 	local Token = self.Text_Token:GetText()
     NetMgr:SendMessage("c2s_user_auth", {user_id = UserID, token = Token})
 end
 
-function UI_Login:OnClicked_Test_2()
-    NetMgr:SendMessage("c2s_query_player_list")
+-- bool is_queue_up = 1;		// 是否需要排队进入
+-- int64 queue_size = 2;		// 总排队人数 （is_queue_up 为 true 是有效）
+-- int64 my_order = 3;			// 当前玩家在排队中的位置 （is_queue_up 为 true 是有效）
+function UI_Login:s2c_ret_user_auth(Msg)
+	if not Msg.is_queue_up then
+		self:RemoveFromViewport()
+		G_PlayerController:OpenSelectRoleUI()
+	else
+		NotifyMsg("Is In Queue")
+	end
 end
 
-function UI_Login:OnClicked_Test_3()
-	local PlayerID = tonumber(self.Text_PlayerID:GetText())
-    NetMgr:SendMessage("c2s_enter_world", {player_id = PlayerID})
-end
-
-function UI_Login:OnClicked_Test_4()
-    NetMgr:SendMessage("c2s_logout", {})
-end
-
-function UI_Login:OnClicked_Test_5()
-	local Profession = tonumber(self.Text_Profession:GetText())
-	local Name = self.Text_Name:GetText()
-    NetMgr:SendMessage("c2s_create_player", {profession = Profession, name = Name})
-end
-
-function UI_Login:OnClicked_Test_6()
-	local GroupID = tonumber(self.Text_GroupID:GetText())
-	local GroupPWD = self.Text_GroupPWD:GetText()
-    NetMgr:SendMessage("c2s_group_join", {id = GroupID, password = GroupPWD})
-end
-
-function UI_Login:OnRecvMsg(InMessageType, InMessage)
-    local s = self.Text_Msg:GetText() .. TableToString(InMessage, InMessageType)
-    self.Text_Msg:SetText(s)
+function UI_Login:Destruct()
+    print("UI_Login Destruct")
+	NetMgr:UnRegEvent("s2c_ret_user_auth", self)
+    self:Release()
 end
 
 return UI_Login
