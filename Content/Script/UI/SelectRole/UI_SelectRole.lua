@@ -7,19 +7,15 @@
 --
 
 ---@class UI_SelectRole
-local UI_SelectRole = Class()
-
---function UI_SelectRole:Initialize(Initializer)
---end
-
---function UI_SelectRole:PreConstruct(IsDesignTime)
---end
+local UI_SelectRole = Class("UI.UI_Base")
 
 function UI_SelectRole:Construct()
+    self.Super.Construct(self)
     self.Button_CreateRole.OnClicked:Add(self, self.OnClicked_CreateRole)
-    EventMgr:RegEvent("s2c_ret_query_player_list", self, self.s2c_ret_query_player_list)
-    EventMgr:RegEvent("s2c_ret_create_player", self, self.s2c_ret_create_player)
-    EventMgr:RegEvent("s2c_notify_enter_world", self, self.s2c_notify_enter_world)
+
+    self:RegEvent("s2c_ret_query_player_list")
+    self:RegEvent("s2c_ret_create_player")
+    self:RegEvent("s2c_notify_enter_world")
     NetMgr:SendMessage("c2s_query_player_list")
 end
 
@@ -27,14 +23,14 @@ end
 function UI_SelectRole:s2c_ret_query_player_list(Msg)
     self.ListView_Role:ClearListItems()
     for i, v in ipairs(Msg.players) do
-        local Item = self:SpawnListViewObject(v)
+        local Item = self:SpawnObject(v)
         self.ListView_Role:AddItem(Item)
     end
 end
 
 -- mini_player_data_t player = 1;
 function UI_SelectRole:s2c_ret_create_player(Msg)
-    local Item = self:SpawnListViewObject(Msg.player)
+    local Item = self:SpawnObject(Msg.player)
     self.ListView_Role:AddItem(Item)
 end
 
@@ -51,20 +47,12 @@ function UI_SelectRole:OnClicked_CreateRole()
     NetMgr:SendMessage("c2s_create_player", {profession = Profession, name = Name})
 end
 
-function UI_SelectRole:SpawnListViewObject(mini_player_data_t)
-    local Item = NewObject(LoadClass("Blueprint'/Game/UI/Common/ListViewLuaObject.ListViewLuaObject_C'"), self)
+function UI_SelectRole:SpawnObject(mini_player_data_t)
+    local Item = self:SpawnListViewObject()
     for k, v in pairs(mini_player_data_t) do
         Item[k] = v
     end
     return Item
-end
-
-function UI_SelectRole:Destruct()
-    print("UI_SelectRole Destruct")
-    EventMgr:UnRegEvent("s2c_ret_query_player_list", self)
-    EventMgr:UnRegEvent("s2c_ret_create_player", self)
-    EventMgr:UnRegEvent("s2c_notify_enter_world", self)
-    self:Release()
 end
 
 return UI_SelectRole

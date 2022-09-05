@@ -6,8 +6,6 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class ClassName
 local M = Class()
 

@@ -6,21 +6,17 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class ClassName
-local TemplateName = Class()
-
---function TemplateName:Initialize(Initializer)
---end
-
---function TemplateName:PreConstruct(IsDesignTime)
---end
-
--- function TemplateName:Construct()
--- end
+local TemplateName = Class("UI.UI_Base")
 
 --function TemplateName:Tick(MyGeometry, InDeltaTime)
 --end
+
+function TemplateName:Construct()
+    self.Super.Construct(self)
+
+end
+
+
 
 return TemplateName

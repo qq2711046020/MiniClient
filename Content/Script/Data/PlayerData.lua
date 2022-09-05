@@ -98,6 +98,7 @@ function PlayerData:UpdateProperties(player_properties)
     for _, _t in pairs(player_properties) do
         for i, v in pairs(_t) do
             self.PlayerProperties[i] = v
+            EventMgr:Call("PlayerPropertyUpdate", i)
         end
     end
 end

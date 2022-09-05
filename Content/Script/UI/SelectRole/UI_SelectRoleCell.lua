@@ -7,15 +7,10 @@
 --
 
 ---@class UI_SelectRoleCell
-local UI_SelectRoleCell = Class()
-
---function UI_SelectRoleCell:Initialize(Initializer)
---end
-
---function UI_SelectRoleCell:PreConstruct(IsDesignTime)
---end
+local UI_SelectRoleCell = Class("UI.UI_Base")
 
 function UI_SelectRoleCell:Construct()
+    self.Super.Construct(self)
     self.Button_Enter.OnClicked:Add(self, self.OnClicked_Enter)
 end
 
@@ -40,11 +35,5 @@ end
 function UI_SelectRoleCell:OnClicked_Enter()
     NetMgr:SendMessage("c2s_enter_world", {player_id = self.PlayerID})
 end
-
-function UI_SelectRoleCell:Destruct()
-    print("UI_SelectRoleCell Destruct")
-    self:Release()
-end
-
 
 return UI_SelectRoleCell

@@ -7,14 +7,16 @@
 --
 
 ---@class UI_Login
-local UI_Login = Class()
+local UI_Login = Class("UI.UI_Base")
 
 function UI_Login:Construct()
+	self.Super.Construct(self)
 	NetMgr:Connect()
 	self.Text_UserID:SetText(LocalConfig:GetValue("UserID", "Login"))
 	self.Text_Token:SetText(LocalConfig:GetValue("Token", "Login"))
     self.Button_Login.OnClicked:Add(self, self.OnClicked_Login)
-    EventMgr:RegEvent("s2c_ret_user_auth", self, self.s2c_ret_user_auth)
+
+	self:RegEvent("s2c_ret_user_auth")
 end
 
 function UI_Login:OnClicked_Login()
@@ -35,12 +37,6 @@ function UI_Login:s2c_ret_user_auth(Msg)
 	else
 		NotifyMsg("Is In Queue")
 	end
-end
-
-function UI_Login:Destruct()
-    print("UI_Login Destruct")
-	EventMgr:UnRegEvent("s2c_ret_user_auth", self)
-    self:Release()
 end
 
 return UI_Login
