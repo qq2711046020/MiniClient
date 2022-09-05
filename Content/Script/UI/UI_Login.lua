@@ -6,21 +6,23 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class UI_Login
 local UI_Login = Class()
 
 function UI_Login:Construct()
 	NetMgr:Connect()
+	self.Text_UserID:SetText(LocalConfig:GetValue("UserID", "Login"))
+	self.Text_Token:SetText(LocalConfig:GetValue("Token", "Login"))
     self.Button_Login.OnClicked:Add(self, self.OnClicked_Login)
     EventMgr:RegEvent("s2c_ret_user_auth", self, self.s2c_ret_user_auth)
 end
 
 function UI_Login:OnClicked_Login()
-	local UserID = self.Text_UserID:GetText() .. NetMgr.Subfix
+	local UserID = self.Text_UserID:GetText()
 	local Token = self.Text_Token:GetText()
-    NetMgr:SendMessage("c2s_user_auth", {user_id = UserID, token = Token})
+	LocalConfig:SetValue("UserID", UserID, "Login")
+	LocalConfig:SetValue("Token", Token, "Login")
+    NetMgr:SendMessage("c2s_user_auth", {user_id = UserID .. NetMgr.Subfix, token = Token})
 end
 
 -- bool is_queue_up = 1;		// 是否需要排队进入

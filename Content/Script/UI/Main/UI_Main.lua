@@ -6,8 +6,6 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class UI_Main
 local UI_Main = Class()
 

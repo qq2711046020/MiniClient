@@ -6,8 +6,6 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class UI_SelectRole
 local UI_SelectRole = Class()
 

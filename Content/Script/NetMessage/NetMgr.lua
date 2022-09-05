@@ -88,6 +88,7 @@ end
 
 function NetMgr:OnClose()
     print("OnClose")
+    UnrealNet.Close(self._connect_id)
 end
 
 function NetMgr:OnRecv(InMessageType, InMessage)

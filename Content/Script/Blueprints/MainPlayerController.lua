@@ -6,8 +6,6 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class MainPlayerController
 local MainPlayerController = Class()
 
@@ -20,8 +18,9 @@ local MainPlayerController = Class()
 --function MainPlayerController:ReceiveBeginPlay()
 --end
 
---function MainPlayerController:ReceiveEndPlay()
---end
+function MainPlayerController:ReceiveEndPlay()
+    NetMgr:SendMessage("c2s_logout", {})
+end
 
 -- function MainPlayerController:ReceiveTick(DeltaSeconds)
 -- end

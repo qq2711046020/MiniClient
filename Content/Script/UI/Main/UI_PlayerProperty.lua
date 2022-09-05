@@ -6,8 +6,6 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class UI_PlayerProperty
 local UI_PlayerProperty = Class()
 

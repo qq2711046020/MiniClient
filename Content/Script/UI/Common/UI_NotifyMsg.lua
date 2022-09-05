@@ -6,8 +6,6 @@
 -- @DATE ${date} ${time}
 --
 
-require "UnLua"
-
 ---@class UI_NotifyMsg
 local UI_NotifyMsg = Class()
 
