@@ -66,9 +66,9 @@ function PlayerData:Init()
         self.PlayerProperties[i] = v.default
     end
 
-    NetMgr:RegEvent("s2c_notify_enter_world", self, self.s2c_notify_enter_world)
-    NetMgr:RegEvent("s2c_notify_player_data", self, self.s2c_notify_player_data)
-    NetMgr:RegEvent("s2c_player_properties_update", self, self.s2c_player_properties_update)
+    EventMgr:RegEvent("s2c_notify_enter_world", self, self.s2c_notify_enter_world)
+    EventMgr:RegEvent("s2c_notify_player_data", self, self.s2c_notify_player_data)
+    EventMgr:RegEvent("s2c_player_properties_update", self, self.s2c_player_properties_update)
 end
 
 function PlayerData:GetProperty(EPlayerProperties)

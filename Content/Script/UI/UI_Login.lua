@@ -14,7 +14,7 @@ local UI_Login = Class()
 function UI_Login:Construct()
 	NetMgr:Connect()
     self.Button_Login.OnClicked:Add(self, self.OnClicked_Login)
-    NetMgr:RegEvent("s2c_ret_user_auth", self, self.s2c_ret_user_auth)
+    EventMgr:RegEvent("s2c_ret_user_auth", self, self.s2c_ret_user_auth)
 end
 
 function UI_Login:OnClicked_Login()
@@ -37,7 +37,7 @@ end
 
 function UI_Login:Destruct()
     print("UI_Login Destruct")
-	NetMgr:UnRegEvent("s2c_ret_user_auth", self)
+	EventMgr:UnRegEvent("s2c_ret_user_auth", self)
     self:Release()
 end
 

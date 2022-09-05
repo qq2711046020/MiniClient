@@ -61,21 +61,7 @@ function NetMgr:RegUnrealNetEvent(EventName)
     end
 end
 
-function NetMgr:RegEvent(EventName, o, f)
-    if not self.Event[EventName] then
-        self.Event[EventName] = {}
-    end
-    self.Event[EventName][o] = f
-end
-
-function NetMgr:UnRegEvent(EventName, o)
-    if self.Event[EventName] then
-        self.Event[EventName][o] = nil
-    end
-end
-
 function NetMgr:Create()
-    self.Event = {}
     self._connect_id = -1
     UnrealNet.SetRemotePublicKey("WrapperAsset'/Game/Security/ServerRsaPublic.ServerRsaPublic'")
     self:RegUnrealNetEvent("OnConnect")
@@ -120,11 +106,7 @@ function NetMgr:OnRecv(InMessageType, InMessage)
     f:write(dumpMsg)
     f:flush()
     f:close()
-    if self.Event[StrMessageType] then
-        for o, f in pairs(self.Event[StrMessageType]) do
-            f(o, TableMessage)
-        end
-    end
+    EventMgr:Call(StrMessageType, TableMessage)
 end
 
 function NetMgr:OnRecvTestPing(InPingInMS)

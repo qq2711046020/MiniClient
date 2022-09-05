@@ -18,7 +18,7 @@ local UI_PlayerProperty = Class()
 --end
 
 function UI_PlayerProperty:Construct()
-    NetMgr:RegEvent("s2c_player_properties_update", self, self.s2c_player_properties_update)
+    EventMgr:RegEvent("s2c_player_properties_update", self, self.s2c_player_properties_update)
 end
 
 function UI_PlayerProperty:SetPropertyType(EPlayerPropertiesName)
@@ -45,7 +45,7 @@ end
 
 function UI_PlayerProperty:Destruct()
     print("UI_PlayerProperty Destruct")
-    NetMgr:UnRegEvent("s2c_player_properties_update", self)
+    EventMgr:UnRegEvent("s2c_player_properties_update", self)
     self:Release()
 end
 

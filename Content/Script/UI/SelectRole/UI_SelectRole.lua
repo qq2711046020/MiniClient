@@ -19,9 +19,9 @@ local UI_SelectRole = Class()
 
 function UI_SelectRole:Construct()
     self.Button_CreateRole.OnClicked:Add(self, self.OnClicked_CreateRole)
-    NetMgr:RegEvent("s2c_ret_query_player_list", self, self.s2c_ret_query_player_list)
-    NetMgr:RegEvent("s2c_ret_create_player", self, self.s2c_ret_create_player)
-    NetMgr:RegEvent("s2c_notify_enter_world", self, self.s2c_notify_enter_world)
+    EventMgr:RegEvent("s2c_ret_query_player_list", self, self.s2c_ret_query_player_list)
+    EventMgr:RegEvent("s2c_ret_create_player", self, self.s2c_ret_create_player)
+    EventMgr:RegEvent("s2c_notify_enter_world", self, self.s2c_notify_enter_world)
     NetMgr:SendMessage("c2s_query_player_list")
 end
 
@@ -63,9 +63,9 @@ end
 
 function UI_SelectRole:Destruct()
     print("UI_SelectRole Destruct")
-    NetMgr:UnRegEvent("s2c_ret_query_player_list", self)
-    NetMgr:UnRegEvent("s2c_ret_create_player", self)
-    NetMgr:UnRegEvent("s2c_notify_enter_world", self)
+    EventMgr:UnRegEvent("s2c_ret_query_player_list", self)
+    EventMgr:UnRegEvent("s2c_ret_create_player", self)
+    EventMgr:UnRegEvent("s2c_notify_enter_world", self)
     self:Release()
 end
 

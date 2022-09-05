@@ -1,5 +1,5 @@
 ---@class LocalConfig
-local LocalConfig = Class()
+LocalConfig = Class()
 
 local CommonSection = "Common"
 local ConfigFile = "/Saved/CommonConfig.ini"
@@ -22,5 +22,3 @@ function LocalConfig:SetValue(Key, Value, Section)
     UE4.USupportLibrary.SetLocalConfig(
         Section, Key, Value, ConfigFile)
 end
-
-return LocalConfig
