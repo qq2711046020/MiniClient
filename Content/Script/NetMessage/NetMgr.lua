@@ -6,6 +6,8 @@ NetMgr.IP = "140.143.246.73"
 NetMgr.Port = 10100
 NetMgr.Subfix = "@100"
 
+local current_path = UE4.UKismetSystemLibrary.GetProjectDirectory()
+local logFile = current_path .. "Saved/MsgDump.log"
 
 local function basicSerialize (o)
     local so = tostring(o)
@@ -112,7 +114,12 @@ function NetMgr:OnRecv(InMessageType, InMessage)
     InMessage = string.char(table.unpack(MessageTable))
     local TableMessage = pb.decode(StrMessageType, InMessage)
 
-    print("OnRecv:" .. TableToString(TableMessage, StrMessageType))
+    print("OnRecv:" .. StrMessageType)
+    local dumpMsg = TableToString(TableMessage, StrMessageType)
+    local f = io.open(logFile, 'a+')
+    f:write(dumpMsg)
+    f:flush()
+    f:close()
     if self.Event[StrMessageType] then
         for o, f in pairs(self.Event[StrMessageType]) do
             f(o, TableMessage)

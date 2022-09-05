@@ -35,10 +35,12 @@ local MainPlayerController = Class()
 --function MainPlayerController:ReceiveActorEndOverlap(OtherActor)
 --end
 
-function MainPlayerController:CreateWidget(Path, ZOrder)
+function MainPlayerController:CreateWidget(Path, ZOrder, NoAdd)
     local widget_class = LoadClass(Path)
     local widget = NewObject(widget_class, self)
-    widget:AddToViewport(ZOrder or 0)
+    if not NoAdd then
+        widget:AddToViewport(ZOrder or 0)
+    end
     return widget
 end
 
