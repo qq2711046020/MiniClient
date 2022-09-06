@@ -29,7 +29,7 @@ function UI_SelectRoleCell:OnListItemObjectSet(Item)
     self.Text_Name:SetText(Item.name)
     self.Text_Profession:SetText(Item.profession)
     self.Text_Level:SetText(Item.level)
-    self.Text_LogoutTime:SetText(Item.last_logout_time)
+    self.Text_LogoutTime:SetText(FormatTime(Item.last_logout_time))
 end
 
 function UI_SelectRoleCell:OnClicked_Enter()

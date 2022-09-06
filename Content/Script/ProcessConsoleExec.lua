@@ -49,3 +49,8 @@ function FuncMap.send(args) -- send c2s_modify_player_name {name="newname"}
         NetMgr:SendMessage(cmd, Msg)
     end
 end
+
+function FuncMap.gm(args) -- gm add_item 2 100
+    local cmd = table.remove(args, 1)
+    NetMgr:SendMessage("c2s_gm_cmd", {cmd = cmd, args = args})
+end

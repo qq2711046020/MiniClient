@@ -24,6 +24,7 @@ function UI_Main:Construct()
     self.Super.Construct(self)
     self.Button_Logout.OnClicked:Add(self, self.OnClicked_Logout)
     self.Button_Group.OnClicked:Add(self, self.OnClicked_Group)
+    self.Button_Cmd.OnClicked:Add(self, self.OnClicked_Cmd)
     self:UpdateUI()
 end
 
@@ -50,6 +51,10 @@ end
 
 function UI_Main:OnClicked_Group()
     G_PlayerController:OpenGroupUI()
+end
+
+function UI_Main:OnClicked_Cmd()
+    G_PlayerController:OpenCmdUI()
 end
 
 return UI_Main
