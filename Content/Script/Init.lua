@@ -7,3 +7,4 @@ require("Utils.BaseFunction")
 require("NetMessage.NetMgr")
 -- Data
 require("Data.PlayerData")
+require("Data.GroupData")

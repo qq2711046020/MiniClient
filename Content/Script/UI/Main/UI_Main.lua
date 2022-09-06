@@ -23,6 +23,7 @@ local ShowPropertyList = {
 function UI_Main:Construct()
     self.Super.Construct(self)
     self.Button_Logout.OnClicked:Add(self, self.OnClicked_Logout)
+    self.Button_Group.OnClicked:Add(self, self.OnClicked_Group)
     self:UpdateUI()
 end
 
@@ -39,6 +40,10 @@ function UI_Main:OnClicked_Logout()
     NetMgr:SendMessage("c2s_logout", {})
     self:RemoveFromViewport()
     G_PlayerController:OpenLoginUI()
+end
+
+function UI_Main:OnClicked_Group()
+    G_PlayerController:OpenGroupUI()
 end
 
 return UI_Main

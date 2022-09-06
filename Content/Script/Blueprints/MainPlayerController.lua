@@ -61,5 +61,10 @@ function MainPlayerController:OpenMainUI()
     return widget
 end
 
+function MainPlayerController:OpenGroupUI()
+    local widget = self:CreateWidget("WidgetBlueprint'/Game/UI/Group/UI_Group.UI_Group_C'")
+    return widget
+end
+
 return MainPlayerController
 

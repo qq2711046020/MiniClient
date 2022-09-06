@@ -384,6 +384,7 @@ enum proto_type
 	s2c_update_group_member_refresh		= 11053;
 	s2c_updaue_member_main_recent		= 11054;
 	s2c_clear_request					= 11055;
+	s2c_notify_update_my_request		= 11056;
 /*****************group end**********************/
 
 /***************** attributes *******************/
@@ -570,12 +571,11 @@ enum proto_type
 	// 主玩法
 	c2s_set_main_loot_field					= 18200;
 	s2c_ret_set_main_loot_field				= 18201;
-	s2c_main_report_list					= 18202;
-	c2s_challange_boss						= 18203;
-	s2c_ret_challange_boss					= 18204;
-	c2s_get_combat_reward					= 18205;
-	s2c_ret_get_combat_reward				= 18206;
-	s2c_main_searching						= 18207;
+	c2s_main_report_list					= 18202;					
+	s2c_main_report_list					= 18203;
+	c2s_challange_boss						= 18204;
+	s2c_ret_challange_boss					= 18205;
+	s2c_main_searching						= 18206;
 
 	// 时装
 	s2c_update_fashion						= 19001;
@@ -1882,6 +1882,7 @@ message group_t
 	uint64 combat_cost_time = 19;
 	bool searching = 20;
 	bool refresh = 21;		// 成员刷新标识
+	map<uint64, uint64>  requested_group = 22;					// 申请过的队伍 map<group_id, 时间戳>
 }
 
 // 变更队伍
@@ -1940,6 +1941,12 @@ message s2c_delete_request
 message s2c_clear_request
 {
 	bool is_full			= 1;  // 当前队伍已满，通知同队人员清理请求
+}
+
+// 通知自己更新申请过的队伍列表
+message s2c_notify_update_my_request
+{
+	uint64 del_group_id				= 1;
 }
 
 // 处理申请
@@ -3040,7 +3047,12 @@ message actor_info_t
 	float            less_hp_per    = 17;  //  剩余HP百分比
 }
 
-// 更新战斗数据
+// 请求战斗数据
+message c2s_main_report_list
+{
+}
+
+// 返回战斗数据
 message s2c_main_report_list
 {
 	combat_data_t data  = 1;
@@ -3566,20 +3578,7 @@ message c2s_challange_boss
 // 挑战boss返回
 message s2c_ret_challange_boss
 {
-}
-
-// 获取战斗奖励
-message c2s_get_combat_reward
-{
-	uint64 combat_id = 1;
-}
-
-// 获取战斗奖励返回
-message s2c_ret_get_combat_reward
-{
-	uint64 map_id = 1;
-	uint64 combat_id = 2;
-	repeated resource_t res = 3;
+	uint64 next_time = 1;
 }
 
 // 离线战斗奖励

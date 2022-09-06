@@ -86,8 +86,9 @@ end
 -- combat_data_t combat_data = 3;
 -- main_offline_rewards_t main_offline_rewards = 4;
 function PlayerData:s2c_notify_player_data(Msg)
-    self.PlayerID = Msg.player.player_id
-    self:UpdateProperties(Msg.player.player_properties)
+    local PlayerInfo = Msg.player
+    self.PlayerID = PlayerInfo.player_id
+    self:UpdateProperties(PlayerInfo.player_properties)
 end
 
 function PlayerData:s2c_player_properties_update(Msg)
