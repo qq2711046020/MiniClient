@@ -1,0 +1,24 @@
+float GX[3][3] = {
+    {-1, -2, -1},
+    {0,   0,  0},
+    {1,   2,  1},
+};
+float GY[3][3] = {
+    {-1, 0, 1},
+    {-2, 0, 0},
+    {-1, 2, 1},
+};
+float4 Ex = 0.f;
+float4 Ey = 0.f;
+
+for (int x = -1; x <= 1; x++)
+{
+    for (int y = -1; y <= 1; y++)
+    {
+        float2 UVOffset = float2(UV.x + x * TexelSize.x, UV.y + y * TexelSize.y);
+        float4 PixelColor = Texture2DSample(Texture, Material.Texture2D_0Sampler, UVOffset);
+        Ex += PixelColor * GX[x + 1][y + 1];
+        Ey += PixelColor * GY[x + 1][y + 1];
+    }
+}
+return saturate((abs(Ex.a) + abs(Ey.a)));
