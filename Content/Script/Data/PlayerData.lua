@@ -66,19 +66,12 @@ function PlayerData:Init()
         self.PlayerProperties[i] = v.default
     end
 
-    EventMgr:RegEvent("s2c_notify_enter_world", self, self.s2c_notify_enter_world)
     EventMgr:RegEvent("s2c_notify_player_data", self, self.s2c_notify_player_data)
     EventMgr:RegEvent("s2c_player_properties_update", self, self.s2c_player_properties_update)
 end
 
 function PlayerData:GetProperty(EPlayerProperties)
     return self.PlayerProperties[EPlayerProperties]
-end
-
--- int64 server_cur_time = 2;
--- int32 game_type = 3;
-function PlayerData:s2c_notify_enter_world(Msg)
-    self.ServerTime = Msg.server_cur_time
 end
 
 -- player_t player = 1;

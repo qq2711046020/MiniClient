@@ -28,12 +28,18 @@ function UI_Main:Construct()
 end
 
 function UI_Main:UpdateUI()
+    self:UpdateServerTime()
+    self:StartTimer("UpdateServerTime", {self, self.UpdateServerTime}, 1, true)
     self.Text_PlayerID:SetText(PlayerData.PlayerID)
     for i, v in ipairs(ShowPropertyList) do
         local widget = self:CreateObject("WidgetBlueprint'/Game/UI/Main/UI_PlayerProperty.UI_PlayerProperty_C'")
         self.VerticalBox_Properties:AddChildToVerticalBox(widget)
         widget:SetPropertyType(v)
     end
+end
+
+function UI_Main:UpdateServerTime()
+    self.Text_GameTime:SetText(FormatTime(GameData:GetServerTime()))
 end
 
 function UI_Main:OnClicked_Logout()
