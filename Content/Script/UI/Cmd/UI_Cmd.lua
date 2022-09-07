@@ -73,6 +73,7 @@ end
 
 function UI_Cmd:LoadHistory()
     local str = LocalConfig:GetValue("History", "Cmd")
+    if not str or str == "" then return {} end
     local result, tList = pcall(load("return " .. str))
     if result then
         return tList

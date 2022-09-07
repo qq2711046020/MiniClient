@@ -576,6 +576,8 @@ enum proto_type
 	c2s_challange_boss						= 18204;
 	s2c_ret_challange_boss					= 18205;
 	s2c_main_searching						= 18206;
+	c2s_main_report_request					= 18207;					
+	s2c_main_report_request					= 18208;
 
 	// 时装
 	s2c_update_fashion						= 19001;
@@ -1925,6 +1927,7 @@ message c2s_group_join
 // 申请加入队伍返回
 message s2c_ret_group_join
 {
+	map<uint64, uint64>  requested_group = 1;					// 申请过的队伍 map<group_id, 时间戳>
 }
 
 // 通知队员有加入申请,或删除申请
@@ -3594,6 +3597,16 @@ message s2c_main_searching
 	bool searching = 1;		// 寻猎状态
 }
 
+// 请求 request
+message c2s_main_report_request
+{
+}
+
+// request返回
+message s2c_main_report_request
+{
+	uint64 next_time = 1;
+}
 // =============================主线end
 
 
