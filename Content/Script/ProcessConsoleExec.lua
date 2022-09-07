@@ -33,7 +33,7 @@ function FuncMap.test()
     NotifyMsg("Test")
 end
 
-function FuncMap.reloadLua()
+function FuncMap.reload()
     UE4.UUnLuaFunctionLibrary.HotReload()
 end
 
