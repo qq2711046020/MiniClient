@@ -304,6 +304,7 @@ enum err_type
 	TheChannelNotOpen				= 309; // 频道未开启
 	HadAlreadShielded				= 310; // 该玩家以被屏蔽
 	HadAlreadyInChatList			= 311; // 该玩家已经在聊天列表里
+	JoinGroupRequestIsOverTime		= 312; // 该入队申请已超时
 }
 
 enum proto_type
