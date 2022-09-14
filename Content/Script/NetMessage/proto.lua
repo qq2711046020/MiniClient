@@ -330,6 +330,9 @@ enum proto_type
 	c2s_user_relogin					= 19;
 	s2c_user_relogin					= 20;
 	s2c_kick_session					= 21;
+	c2s_gift_pack_redemption			= 22;
+	s2c_ret_gift_pack_redemption		= 23;
+
 	
 /*****************group begine*******************/
 	c2s_get_simple_player_data			= 11003;
@@ -1498,6 +1501,22 @@ message life_skill_t
 	bool flag							= 10;	// 领奖标识
 }
 
+enum settings_type 
+{
+	high_resolution					= 1;	// 高分辨率
+	hd_model						= 2; 	// 高清模型
+	high_fps						= 3; 	// 高帧数
+	battle_effect					= 4;	// 战斗特性
+	music_num						= 5;	// 音乐音量
+	sound_num						= 6;	// 声音大小
+	bg_music						= 7; 	// 选择的背景音乐
+	afk_gains						= 8;	// 挂机收益
+	pet_expedition_voer				= 9;	// 宠物探险结束
+	pet_capture_over				= 10;	// 宠物捕捉结束
+	clan_war 						= 11; 	// 部落战
+	language						= 12; 	// 语言
+}
+
 // 玩家数据
 message player_t
 {
@@ -1505,10 +1524,9 @@ message player_t
 	properties_t player_properties = 2;
 	attribute_t attributes = 3;
 	repeated channel_chat_data_t chat_msgs = 4;					// 当前所在频道聊天信息 
-	bytes setting_data = 5;										// 客户端设置数据
+	//bytes setting_data = 5;										// 客户端设置数据
 	map<int64, item_data_t> items = 6;							// 物品数据 map<item_id, item_data_t>
 	map<int64, equip_slot_t> equip_slots = 7;					// 装备槽位数据 map<slot类型, equip_slot_t>		
-	//map<int64, commodity_t> commodity_items		 = 8;			// 商店物品列表		
 	risker_union_t risker_union = 9;							// 冒险者公会
 	map<int64, int64> talents = 10;								// 天赋, key 为天赋id, value为对应天赋点数
 	skill_system_t skill_system = 11;							// 技能系统
@@ -1523,6 +1541,7 @@ message player_t
 	mystery_t mystery_info = 20;								// 秘境
 	int64 channel_type						= 21;				// 玩家现加入的频道类型 公共频道、特色频道
 	map<int64, player_info> chat_tags 		= 22;				// 聊天列表
+	map<uint32, uint32> settings			= 23;				// 客户端设置数据 map<settings_type, 1/0> 1:true 0:false
 }
 
 message s2c_result_msg
@@ -1669,6 +1688,7 @@ message simple_gem_t
 	int64 max_process_count = 4;					// 宝石最大可加工次数
 	int64 best_slot = 5;							// 宝石最佳装备部位 
 	repeated gem_addition_t gem_additions = 6;		// 宝石附加项，数组每一项为一次加工的效果
+	bool lock = 7;									// 宝石孔锁头
 }
 
 // 简单装备数据
@@ -1678,6 +1698,7 @@ message simple_equip_data_t
 	int64 base_attr_value = 2;						// 基础属性值
 	int64 intensify_level = 3;						// 强化等级
 	repeated simple_gem_t gems = 4;					// 宝石
+	map<int32, simple_gem_t> map_gems = 5;			// 宝石 <slot, value>
 }
 
 // 宠物简单数据
@@ -2647,13 +2668,26 @@ message s2s_ret_modify_player_name
 {
 }
 
+// 设置
 message c2s_client_setting
 {
-	bytes setting_data = 1;
+	map<uint32, uint32> setting_data = 1;
 }
 
 message s2c_ret_client_setting
 {
+	map<uint32, uint32> setting_data = 1;
+}
+
+// 礼包兑换
+message c2s_gift_pack_redemption
+{
+	bytes code 			= 1;
+}
+
+message s2c_ret_gift_pack_redemption
+{
+	repeated resource_t rewards 	= 1;	// 奖励列表
 }
 
 

@@ -1,10 +1,53 @@
 local UnrealNet = require("UnrealNet")
 local pb = require("pb")
 NetMgr = Class()
-
+--测试用服务器1
 NetMgr.IP = "140.143.246.73"
 NetMgr.Port = 10100
 NetMgr.Subfix = "@100"
+
+--[[
+--Server_V0.1.0
+    NetMgr.IP = "140.143.246.73"
+    NetMgr.Port = 10200
+    NetMgr.Subfix = "@1"
+
+--Internal_CSL
+    NetMgr.IP = "192.168.1.66"
+    NetMgr.Port = 10100
+    NetMgr.Subfix = "@201"
+
+--测试用服务器2
+    NetMgr.IP = "192.168.1.6"
+    NetMgr.Port = 10100
+    NetMgr.Subfix = "@9201"
+
+--Inter
+    NetMgr.IP = "140.143.246.73"
+    NetMgr.Port = 10200
+    NetMgr.Subfix = "@101"
+
+--测试用服务器1
+    NetMgr.IP = "140.143.246.73"
+    NetMgr.Port = 10100
+    NetMgr.Subfix = "@100"
+
+--Internal_GS
+    NetMgr.IP = "192.168.1.21"
+    NetMgr.Port = 10100
+    NetMgr.Subfix = "@213"
+
+--Internal_Cjh
+    NetMgr.IP = "192.168.1.206"
+    NetMgr.Port = 10100
+    NetMgr.Subfix = "@206"
+
+--Internal_Bing
+    NetMgr.IP = "192.168.1.131"
+    NetMgr.Port = 10500
+    NetMgr.Subfix = "@55"
+]]
+
 
 local current_path = UE4.UKismetSystemLibrary.GetProjectDirectory()
 local logFile = current_path .. "Saved/MsgDump.log"
