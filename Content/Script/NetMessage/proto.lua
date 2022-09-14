@@ -332,6 +332,8 @@ enum proto_type
 	s2c_kick_session					= 21;
 	c2s_gift_pack_redemption			= 22;
 	s2c_ret_gift_pack_redemption		= 23;
+	c2s_logout_world					= 24;
+	c2s_ret_logout_world				= 25;
 
 	
 /*****************group begine*******************/
@@ -816,6 +818,10 @@ enum proto_type
 	s2c_ret_pet_island_tower_place				= 22019;
 	s2c_notify_pet_island_tower_update			= 22020;
 	s2c_notify_pet_island_update				= 22021;
+
+	// 功能解锁
+	c2s_set_function_unlock_flag				= 22100;
+	s2c_set_function_unlock_flag				= 22101;
 
 
 	server_internal_begin				= 60000;
@@ -1542,6 +1548,7 @@ message player_t
 	int64 channel_type						= 21;				// 玩家现加入的频道类型 公共频道、特色频道
 	map<int64, player_info> chat_tags 		= 22;				// 聊天列表
 	map<uint32, uint32> settings			= 23;				// 客户端设置数据 map<settings_type, 1/0> 1:true 0:false
+	int64 function_unlock_flag = 24;							// 功能解锁已读标记
 }
 
 message s2c_result_msg
@@ -2690,6 +2697,14 @@ message s2c_ret_gift_pack_redemption
 	repeated resource_t rewards 	= 1;	// 奖励列表
 }
 
+message c2s_logout_world
+{
+	int64 player_id = 1;
+}
+
+message c2s_ret_logout_world
+{
+}
 
 // 同步物品添加
 message s2c_add_item
@@ -5550,4 +5565,17 @@ message s2c_ret_pet_regain_strength
 	
 }
 // -------------------------------------佣兽岛end-----------------------------------
+
+// -------------------------------------功能解锁start-----------------------------------
+// 功能解锁已读
+message c2s_set_function_unlock_flag
+{
+	int64 function_unlock_flag = 1;
+}
+
+message s2c_set_function_unlock_flag
+{
+	int64 function_unlock_flag = 1;
+}
+// -------------------------------------功能解锁end-----------------------------------
 ]]
