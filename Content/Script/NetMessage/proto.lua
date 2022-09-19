@@ -333,7 +333,7 @@ enum proto_type
 	c2s_gift_pack_redemption			= 22;
 	s2c_ret_gift_pack_redemption		= 23;
 	c2s_logout_world					= 24;
-	c2s_ret_logout_world				= 25;
+	s2c_ret_logout_world				= 25;
 
 	
 /*****************group begine*******************/
@@ -453,6 +453,7 @@ enum proto_type
 	c2s_chat_del_friend_tag 			= 12089;
 	s2c_ret_chat_del_friend_tag 		= 12090;
 	s2c_notify_friend_tag				= 12091;
+	s2c_notify_update_channel			= 12092;
 
 
 	s2c_add_item						= 13001;
@@ -1029,6 +1030,7 @@ enum attribute_ids
 	MaxImpale = 10007; // 初始破击率上限
 	MaxCritDamage = 10008; // 初始暴击伤害上限
 	MaxTenacityValue = 10009; // 初始暴伤抗性上限
+	ShowAttackSpeed = 992012; // 攻击间隔(目前仅显示用)
 }
 
 enum game_type
@@ -2478,6 +2480,15 @@ message s2c_ret_change_channel_id
 	repeated channel_chat_data_t msgs 	= 3;	
 }
 
+message s2c_notify_update_channel
+{
+	int64 channel_type 					= 1;
+	int64 channel_id					= 2;
+	int64 del_channel_type 				= 3;
+	int64 del_channel_id				= 4;
+	repeated channel_chat_data_t msgs 	= 5;
+}
+
 // 【私聊】添加聊天标签
 message c2s_chat_add_friend_tag 
 {
@@ -2702,7 +2713,7 @@ message c2s_logout_world
 	int64 player_id = 1;
 }
 
-message c2s_ret_logout_world
+message s2c_ret_logout_world
 {
 }
 
@@ -5567,6 +5578,20 @@ message s2c_ret_pet_regain_strength
 // -------------------------------------佣兽岛end-----------------------------------
 
 // -------------------------------------功能解锁start-----------------------------------
+// 条件类型 与ConditionConfig中条件类型保持一致
+enum condition_type
+{
+	level 			= 1;
+	main_progress	= 2;
+	change_job		= 3;
+}
+// 功能解锁条件类型 与UnlockShowConfig表一致
+enum unlock_type
+{
+	equip			= 1;
+	skill 			= 2;
+	gem 			= 3;
+}
 // 功能解锁已读
 message c2s_set_function_unlock_flag
 {

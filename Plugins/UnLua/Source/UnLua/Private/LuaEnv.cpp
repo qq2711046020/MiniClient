@@ -60,7 +60,8 @@ namespace UnLua
         AddSearcher(LoadFromBuiltinLibs, 4);
 
         UELib::Open(L);
-        LuaUnrealNet = MakeUnique<FLuaUnrealNet>(L);
+        //LuaUnrealNet = MakeUnique<FLuaUnrealNet>(L);
+        LuaUnrealNet = MakeUnique<FLuaUnrealNet>(this);
 
         ObjectRegistry = MakeShared<FObjectRegistry>(this);
         ClassRegistry = MakeShared<FClassRegistry>(this);

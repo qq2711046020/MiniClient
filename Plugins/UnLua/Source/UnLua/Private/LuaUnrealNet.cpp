@@ -244,12 +244,13 @@ namespace UnLua {
 		return 1;
 	}
 
-	FLuaUnrealNet::FLuaUnrealNet(lua_State* InLuaState)
+	FLuaUnrealNet::FLuaUnrealNet(FLuaEnv* Env)
+		: Env(Env)
 	{
-		_LuaState = InLuaState;
+		_LuaState = Env->GetMainState();
 		FLuaStackGuard LuaStackGuard(_LuaState);
 		luaL_requiref(_LuaState, "UnrealNet", luaopen_UnrealNet, 0);
-
+		IUnrealNet::Get();
 		if (!IUnrealNet::IsAvailable())
 		{
 			UE_LOG(LogUnLua, Error, TEXT("LuaUnrealNet constructor UnrealNet Module unavailable"));

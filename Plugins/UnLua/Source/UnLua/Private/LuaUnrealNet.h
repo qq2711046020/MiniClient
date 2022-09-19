@@ -7,7 +7,7 @@ namespace UnLua{
 	class FLuaUnrealNet final
 	{
 	public:
-		FLuaUnrealNet(lua_State* InLuaState);
+		FLuaUnrealNet(FLuaEnv* Env);
 		FLuaUnrealNet(const FLuaUnrealNet&) = delete;
 		FLuaUnrealNet(FLuaUnrealNet&&) = delete;
 		~FLuaUnrealNet();
@@ -24,5 +24,6 @@ namespace UnLua{
 		void OnRecvTestPing(int32 connect_id, const uint32 ping_in_ms);
 
 		lua_State* _LuaState;
+		FLuaEnv* Env;
 	};
 }

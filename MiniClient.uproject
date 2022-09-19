@@ -12,5 +12,29 @@
 				"Engine"
 			]
 		}
+	],
+	"Plugins": [
+		{
+			"Name": "UnLua",
+			"Enabled": true
+		},
+		{
+			"Name": "UnrealNet",
+			"Enabled": true
+		},
+		{
+			"Name": "Cryptography",
+			"Enabled": true
+		},
+		{
+			"Name": "RunAuxiliary",
+			"Enabled": true
+		}
+	],
+	"TargetPlatforms": [
+		"Android",
+		"IOS",
+		"MacNoEditor",
+		"WindowsNoEditor"
 	]
 }

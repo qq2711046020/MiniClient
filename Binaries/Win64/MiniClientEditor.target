@@ -36,14 +36,6 @@
 			"Type": "SymbolFile"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/Binaries/Win64/UE4Editor-UnLuaExtensions.dll",
-			"Type": "DynamicLibrary"
-		},
-		{
-			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/Binaries/Win64/UE4Editor-UnLuaExtensions.pdb",
-			"Type": "SymbolFile"
-		},
-		{
 			"Path": "$(ProjectDir)/Plugins/UnLua/Binaries/Win64/UE4Editor-UnLua.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -97,6 +89,14 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/RunAuxiliary/Binaries/Win64/UE4Editor-ScreenLog.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/Binaries/Win64/UE4Editor-UnLuaExtensions.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/Binaries/Win64/UE4Editor-UnLuaExtensions.pdb",
 			"Type": "SymbolFile"
 		},
 		{
@@ -4740,10 +4740,6 @@
 			"Type": "RequiredResource"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/Binaries/Win64/UE4Editor.modules",
-			"Type": "RequiredResource"
-		},
-		{
 			"Path": "$(ProjectDir)/Plugins/UnLua/Binaries/Win64/UE4Editor.modules",
 			"Type": "RequiredResource"
 		},
@@ -4757,6 +4753,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/RunAuxiliary/Binaries/Win64/UE4Editor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/Binaries/Win64/UE4Editor.modules",
 			"Type": "RequiredResource"
 		},
 		{
@@ -5246,10 +5246,6 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/UnLuaExtensions.uplugin",
-			"Type": "UFS"
-		},
-		{
 			"Path": "$(ProjectDir)/Plugins/UnLua/UnLua.uplugin",
 			"Type": "UFS"
 		},
@@ -5263,6 +5259,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/RunAuxiliary/RunAuxiliary.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/UnLuaExtensions/UnLuaExtensions.uplugin",
 			"Type": "UFS"
 		},
 		{

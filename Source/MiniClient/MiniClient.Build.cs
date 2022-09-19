@@ -8,13 +8,18 @@ public class MiniClient : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] {
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"InputCore",
+			"UnLua",
+			"Lua"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {
 			"Slate", "SlateCore",
 			"UMG",
-			"UnLua",
-			"Lua"
 		});
 
 		// Uncomment if you are using online features
