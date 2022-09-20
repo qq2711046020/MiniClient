@@ -10,7 +10,7 @@ end
 -- int32 err_id = 1;
 -- int32 flag = 2;			// flag:普通返回为 0， gm命令返回为 1
 function GameData:s2c_result_msg(Msg)
-    NotifyMsg("error : " .. Msg.err_id)
+    Error("s2c_result_msg : " .. Msg.err_id .. " : " .. pb.enum("err_type", Msg.err_id))
 end
 
 -- int64 server_cur_time = 2;

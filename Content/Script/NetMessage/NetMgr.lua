@@ -1,52 +1,65 @@
 local UnrealNet = require("UnrealNet")
 local pb = require("pb")
 NetMgr = Class()
---测试用服务器1
-NetMgr.IP = "140.143.246.73"
-NetMgr.Port = 10100
-NetMgr.Subfix = "@100"
 
---[[
---Server_V0.1.0
-    NetMgr.IP = "140.143.246.73"
-    NetMgr.Port = 10200
-    NetMgr.Subfix = "@1"
-
---Internal_CSL
-    NetMgr.IP = "192.168.1.66"
-    NetMgr.Port = 10100
-    NetMgr.Subfix = "@201"
-
---测试用服务器2
-    NetMgr.IP = "192.168.1.6"
-    NetMgr.Port = 10100
-    NetMgr.Subfix = "@9201"
-
---Inter
-    NetMgr.IP = "140.143.246.73"
-    NetMgr.Port = 10200
-    NetMgr.Subfix = "@101"
-
---测试用服务器1
-    NetMgr.IP = "140.143.246.73"
-    NetMgr.Port = 10100
-    NetMgr.Subfix = "@100"
-
---Internal_GS
-    NetMgr.IP = "192.168.1.21"
-    NetMgr.Port = 10100
-    NetMgr.Subfix = "@213"
-
---Internal_Cjh
-    NetMgr.IP = "192.168.1.206"
-    NetMgr.Port = 10100
-    NetMgr.Subfix = "@206"
-
---Internal_Bing
-    NetMgr.IP = "192.168.1.131"
-    NetMgr.Port = 10500
-    NetMgr.Subfix = "@55"
-]]
+NetMgr.ServerList = {
+    [1] = {
+        IP = "140.143.246.73",
+        Port = 10100,
+        ZoneID = 100,
+        GroupName = "公共",
+        Name = "主干开发"
+    },
+    [2] = {
+        IP = "140.143.246.73",
+        Port = 10200,
+        ZoneID = 1,
+        GroupName = "公共",
+        Name = "Server_V0.1.0"
+    },
+    [3] = {
+        IP = "192.168.1.6",
+        Port = 10100,
+        ZoneID = 9201,
+        GroupName = "公共",
+        Name = "测试用服务器2"
+    },
+    [4] = {
+        IP = "192.168.1.66",
+        Port = 10100,
+        ZoneID = 201,
+        GroupName = "私人",
+        Name = "Internal_CSL"
+    },
+    [5] = {
+        IP = "192.168.1.21",
+        Port = 10100,
+        ZoneID = 213,
+        GroupName = "私人",
+        Name = "Internal_GS"
+    },
+    [6] = {
+        IP = "192.168.1.206",
+        Port = 10100,
+        ZoneID = 206,
+        GroupName = "私人",
+        Name = "Internal_Cjh"
+    },
+    [7] = {
+        IP = "192.168.1.131",
+        Port = 10500,
+        ZoneID = 55,
+        GroupName = "私人",
+        Name = "Internal_Bing"
+    },
+    [8] = {
+        IP = "140.143.246.73",
+        Port = 10200,
+        ZoneID = 101,
+        GroupName = "",
+        Name = "Inter"
+    }
+}
 
 
 local current_path = UE4.UKismetSystemLibrary.GetProjectDirectory()
@@ -113,9 +126,9 @@ function NetMgr:Create()
     self:RegUnrealNetEvent("OnRecvTestPing")
 end
 
-function NetMgr:Connect()
+function NetMgr:Connect(IP, Port)
     self._connect_id = UnrealNet.CreateClient()
-    UnrealNet.Connect(self._connect_id, NetMgr.IP , NetMgr.Port)
+    UnrealNet.Connect(self._connect_id, IP , Port)
 end
 
 function NetMgr:SendMessage(InMessageType, InMessage)

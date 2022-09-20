@@ -37,6 +37,7 @@ function UI_Cmd:Construct()
 
     self.ComboBox_Msg.OnSelectionChanged:Add(self, self.OnSelectMsg)
     self.ListView_History.BP_OnItemClicked:Add(self, self.OnClicked_History)
+    self.Button_Mask.OnClicked:Add(self, self.OnClicked_Mask)
     self.Button_Send.OnClicked:Add(self, self.OnClicked_Send)
     self.Button_Close.OnClicked:Add(self, self.OnClicked_Close)
     self.Button_Clear.OnClicked:Add(self, self.OnClicked_Clear)
@@ -112,6 +113,10 @@ function UI_Cmd:OnClicked_Send()
     else
         print(result)
     end
+end
+
+function UI_Cmd:OnClicked_Mask()
+    self:RemoveFromViewport()
 end
 
 function UI_Cmd:OnClicked_Close()
