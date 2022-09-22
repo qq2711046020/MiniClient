@@ -1,5 +1,7 @@
-xcopy D:\data\Client\Trunk\Content\Script\NetMessage\proto.lua  .\Content\Script\NetMessage\ /Y
-xcopy D:\data\Client\Trunk\Content\Script\Data\Type\Properties\ItemPropertiesConfig.lua  .\Content\Script\Properties\ /Y
-xcopy D:\data\Client\Trunk\Content\Script\Data\Type\Properties\PetPropertiesConfig.lua  .\Content\Script\Properties\ /Y
-xcopy D:\data\Client\Trunk\Content\Script\Data\Type\Properties\PlayerPropertiesConfig.lua  .\Content\Script\Properties\ /Y
+set ClientPath=D:\data\Client\Trunk\
+set MiniClientPath=.\
+xcopy %ClientPath%Content\Script\NetMessage\proto.lua  %MiniClientPath%Content\Script\NetMessage\ /Y
+xcopy %ClientPath%Content\Script\Data\Type\Properties\ItemPropertiesConfig.lua %MiniClientPath%Content\Script\Properties\ /Y
+xcopy %ClientPath%Content\Script\Data\Type\Properties\PetPropertiesConfig.lua %MiniClientPath%Content\Script\Properties\ /Y
+xcopy %ClientPath%Content\Script\Data\Type\Properties\PlayerPropertiesConfig.lua  %MiniClientPath%Content\Script\Properties\ /Y
 pause
