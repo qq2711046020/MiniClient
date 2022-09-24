@@ -84,21 +84,35 @@ function UI_Cmd:LoadHistory()
     end
 end
 
+local function create_default(type)
+    local function _default(type)
+        local lua_table = pb.decode(type)
+        if not lua_table then
+            error("lua-protobuf create default fail. type = " .. type)
+            return
+        end
+
+        for name, tag, subtype in pb.fields(type) do
+            print(name, tag, subtype, pb.type(subtype))
+            if not lua_table[name] then
+                local sname, _, sty = pb.type(subtype)
+                if sty =="message" and sname ~= type then
+                    -- 只支持 message，且不支持循环嵌套
+                    lua_table[name] = _default(subtype)
+                end
+            end
+        end
+        return lua_table
+    end
+
+    return _default(type)
+end
+
 function UI_Cmd:OnSelectMsg(SelectedItem, SelectionType)
     if SelectionType == UE4.ESelectInfo.Direct then return end
     if self.ComboBox_Msg:GetSelectedIndex() == 0 then return end
-    local function GetFields(msgType, t)
-        for _name, _number, _type in pb.fields(msgType) do
-            if not _type:find("%.") then
-                t[_name] = _type
-            else
-                t[_name] = {}
-                GetFields(_type, t[_name])
-            end
-        end
-    end
-    local Msg = {}
-    GetFields(SelectedItem, Msg)
+
+    local Msg = create_default(SelectedItem)
     self.Text_Msg:SetText(serpent.block(Msg))
 end
 
